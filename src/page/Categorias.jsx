@@ -1,0 +1,67 @@
+import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import CardProducts from "../components/CardProducts";
+const API = 'https://dummyjson.com/products/category/'
+
+const Categorias = () => {
+    const parametro=useParams()
+    const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
+    const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
+    const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
+    const URI = API + parametro.cat
+        
+        const getDatos = async () => {
+            try {
+                const response = await fetch(URI);
+                if (!response.ok) {
+                    throw new Error("HTTP error! status: " + response.status);
+                }
+                const data = await response.json();
+                setDatos(data.products);
+                //console.log("Mostrando datos bien epicos de la api")
+                //console.log(data)
+                setLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
+        };
+        useEffect(() => {
+            getDatos();
+        }, [parametro.cat]);
+    
+        if (loading) {
+            return (
+                <div className="text-center py-5">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Cargando Registros bien mamalones y epicos...</p>
+                </div>
+            );
+        }
+        if (error) {
+            return (
+                <div className="text-center py-5 text-danger">
+                    <h4>Elol al calgal los legistlos bien mamalones y epicos</h4>
+                    <p>{error}</p>
+                </div>
+            );
+        }
+
+  return (
+    <div className="container">
+      <h1 className="text-center py-4">PAGINA DE MOVIL BIEN EPICA 3000</h1>
+    <div className="row">
+        {datos.map((item)=>(
+
+            <CardProducts key={item.id} item={item}/>
+        ))}
+            
+
+    </div>
+    </div>
+  )
+}
+
+export default Categorias

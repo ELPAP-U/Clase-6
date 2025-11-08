@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { formatCurrency } from "../util/funciones";
+
+import CardProducts from "../components/CardProducts";
 
 const API = 'https://dummyjson.com/products/category/laptops'
 
@@ -17,8 +18,8 @@ const [datos, setDatos] = useState([]); //datos: Almacena los productos recibido
             }
             const data = await response.json();
             setDatos(data.products);
-            console.log("Mostrando datos bien epicos de la api")
-            console.log(data)
+            //console.log("Mostrando datos bien epicos de la api")
+            //console.log(data)
             setLoading(false);
         } catch (err) {
             setError(err.message);
@@ -54,26 +55,7 @@ const [datos, setDatos] = useState([]); //datos: Almacena los productos recibido
       <h1 className="text-center py-4">PAGINA DE MOVIL BIEN EPICA 3000</h1>
     <div className="row">
         {datos.map((item)=>(
-            <div className="col-6 col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div className="card text-center h-100">
-                    <div className="card-header">
-                        <img src={item.thumbnail} alt={item.price} className="img-fluid" />
-                    </div>
-                    <div className="card-body">
-                        <p className="fs-5">{item.title}</p>
-                        <p className="fs-6 fw-bold text-danger">Marca: {item.brand}</p>
-                        <p className="fs-4 text-warning">Precio: {formatCurrency( item.price)}</p>
-                    </div>
-                    <div className="card-footer">
-                        <button className="btn btn-outline-info me-4">
-                            Modal
-                        </button>
-                        <button className="btn btn-outline-warning">
-                            Detalles
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <CardProducts key={item.id} item={item}/>
         ))}
             
 

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import FiltroCategorias from "./FiltroCategorias"
 
 
 const Header = () => {
@@ -23,19 +24,15 @@ const Header = () => {
         <li className="nav-item">
           <Link to={'/comestibles'} className="nav-link" href="#">Comestibles</Link>
         </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Productos
-          </a>
-          <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">Producto1</a></li>
-            <li><a className="dropdown-item" href="#">Producto2</a></li>
-            <li><a className="dropdown-item" href="#">Producto3</a></li>
-          </ul>
-          <li className="nav-item">
-          <a className="nav-link" href="#">Contactos</a>
-        </li>
-        </li>
+       <li className="nav-item dropdown">
+      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Dropdown
+      </a>
+      <ul className="dropdown-menu">
+        <FiltroCategorias/>
+      </ul>
+    </li>
+
       </ul>
       <form className="d-flex" role="search">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
